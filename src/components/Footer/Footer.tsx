@@ -1,5 +1,6 @@
 // src/components/Footer/Footer.tsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function Footer() {
@@ -9,9 +10,9 @@ function Footer() {
       <div className="footer-section">
         <h3 className="footer-heading">Rehaus</h3>
         <ul className="footer-links">
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/impact">Impact</a></li>
-          <li><a href="/customer-service">Customer Service</a></li>
+          <li><Link to="/about">About Us</Link></li>
+          <li><Link to="/impact">Impact</Link></li>
+          <li><Link to="/resolution-centre">Customer Service</Link></li>
         </ul>
       </div>
 

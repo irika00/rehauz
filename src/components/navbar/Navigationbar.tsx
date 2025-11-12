@@ -3,9 +3,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navigationbar.css';
 
-
-
-
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
@@ -56,14 +53,17 @@ function Navbar() {
         {isLoggedIn ? (
           // Logged IN - show profile and icons
           <>
-            <button className="profile-button">My Profile</button>
-            <button className="icon-button">💬</button>
+            <button className="profile-button" onClick={() => navigate('/profile')}>
+              My Profile
+            </button>
+            <button className="icon-button" onClick={() => navigate('/messages')}>💬</button>
             <button className="icon-button" onClick={() => navigate('/wishlist')}>♡</button>
             <button className="icon-button" onClick={() => navigate('/shopping-bag')}>🛍️</button>
           </>
         ) : (
           // NOT logged in - show Sign Up and Login buttons
           <>
+            <button className="icon-button" onClick={() => navigate('/messages')}>💬</button>
             <button className="icon-button" onClick={() => navigate('/wishlist')}>♡</button>
             <button className="icon-button" onClick={() => navigate('/shopping-bag')}>🛍️</button>
             <Link to="/signup" className="signup-link">Sign Up</Link>

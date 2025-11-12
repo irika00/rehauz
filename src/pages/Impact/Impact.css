@@ -1,0 +1,309 @@
+ /* src/pages/Impact/Impact.css */
+
+.impact-page {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Hero Section */
+  .impact-hero {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+  }
+  
+  .impact-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+  }
+  
+  .impact-subtitle {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+    opacity: 0.95;
+  }
+  
+  /* Stats Section */
+  .stats-section {
+    padding: 80px 20px;
+    background-color: #fff;
+  }
+  
+  .stats-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .stats-heading {
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #000;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  
+  .stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  
+  .stat-label {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.95;
+  }
+  
+  /* Impact Section */
+  .impact-section {
+    padding: 80px 20px;
+  }
+  
+  .impact-section.alt-bg {
+    background-color: #f9f9f9;
+  }
+  
+  .section-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .section-title {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 48px;
+    color: #000;
+    text-align: center;
+  }
+  
+  /* Reasons Grid */
+  .impact-reasons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-top: 48px;
+  }
+  
+  .reason-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .reason-icon {
+    font-size: 56px;
+    margin-bottom: 20px;
+  }
+  
+  .reason-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    color: #000;
+  }
+  
+  .reason-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0 0 20px 0;
+  }
+  
+  .reason-stat {
+    font-size: 16px;
+    color: #11998e;
+    padding: 16px;
+    background-color: #f0fdf4;
+    border-radius: 8px;
+    border-left: 4px solid #11998e;
+  }
+  
+  .reason-stat strong {
+    font-weight: 700;
+  }
+  
+  /* Commitments List */
+  .commitments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 48px;
+  }
+  
+  .commitment-item {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  
+  .commitment-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: #11998e;
+    line-height: 1;
+    min-width: 80px;
+  }
+  
+  .commitment-content {
+    flex: 1;
+  }
+  
+  .commitment-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: #000;
+  }
+  
+  .commitment-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #666;
+    margin: 0;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+  }
+  
+  .cta-section .section-title {
+    color: white;
+  }
+  
+  .cta-text {
+    font-size: 18px;
+    line-height: 1.8;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    color: white;
+  }
+  
+  .impact-cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  
+  .impact-cta-button {
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .impact-cta-button.primary {
+    background-color: white;
+    color: #11998e;
+  }
+  
+  .impact-cta-button.primary:hover {
+    background-color: #f0fdf4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .impact-cta-button.secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .impact-cta-button.secondary:hover {
+    background-color: white;
+    color: #11998e;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .impact-hero {
+      padding: 60px 20px;
+    }
+  
+    .impact-title {
+      font-size: 36px;
+    }
+  
+    .impact-subtitle {
+      font-size: 20px;
+    }
+  
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  
+    .impact-section {
+      padding: 60px 20px;
+    }
+  
+    .section-title {
+      font-size: 28px;
+    }
+  
+    .commitment-number {
+      font-size: 36px;
+      min-width: 60px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .impact-title {
+      font-size: 28px;
+    }
+  
+    .impact-subtitle {
+      font-size: 16px;
+    }
+  
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .stat-number {
+      font-size: 36px;
+    }
+  
+    .reason-card {
+      padding: 24px;
+    }
+  
+    .commitment-item {
+      flex-direction: column;
+      gap: 12px;
+    }
+  
+    .impact-cta-buttons {
+      flex-direction: column;
+    }
+  
+    .impact-cta-button {
+      width: 100%;
+    }
+  }

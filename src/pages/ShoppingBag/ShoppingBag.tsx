@@ -1,8 +1,11 @@
 // src/pages/ShoppingBag/ShoppingBag.tsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './ShoppingBag.css';
 
 function ShoppingBag() {
+  const navigate = useNavigate();
+
   // Sample bag items (later this will come from your backend/Supabase)
   const [bagItems, setBagItems] = useState([
     { 
@@ -36,52 +39,85 @@ function ShoppingBag() {
     setBagItems(bagItems.filter(item => item.id !== itemId));
   };
 
+  // Navigate to checkout with all items
   const handleCheckout = () => {
-    console.log('Proceeding to checkout...');
-    // Checkout logic will go here later
+    if (bagItems.length === 0) {
+      alert('Your bag is empty!');
+      return;
+    }
+    
+    navigate('/checkout', {
+      state: {
+        cartItems: bagItems,
+        sellerName: 'Rehaus Marketplace'
+      }
+    });
+  };
+
+  // Navigate to checkout with single item
+  const handleIndividualCheckout = (item) => {
+    navigate('/checkout', {
+      state: {
+        cartItems: [item],
+        sellerName: 'Rehaus Marketplace'
+      }
+    });
   };
 
   return (
     <div className="shopping-bag-page">
       <h1 className="bag-title">Shopping Bag</h1>
 
-      <div className="bag-items">
-        {bagItems.map((item) => (
-          <div key={item.id} className="bag-item">
-            <div className="bag-item-content">
-              <div className="bag-item-image">
-                <img src={item.image} alt={item.name} />
-              </div>
-              
-              <div className="bag-item-details">
-                <h3 className="bag-item-name">{item.name}</h3>
-                <p className="bag-item-price">Price</p>
-                <p className="bag-item-description">{item.description}</p>
-              </div>
-            </div>
+      {bagItems.length === 0 ? (
+        <div className="empty-bag">
+          <p>Your shopping bag is empty</p>
+        </div>
+      ) : (
+        <>
+          <div className="bag-items">
+            {bagItems.map((item) => (
+              <div key={item.id} className="bag-item">
+                <div className="bag-item-content">
+                  <div className="bag-item-image">
+                    <img src={item.image} alt={item.name} />
+                  </div>
+                  
+                  <div className="bag-item-details">
+                    <h3 className="bag-item-name">{item.name}</h3>
+                    <p className="bag-item-price">${item.price}</p>
+                    <p className="bag-item-description">{item.description}</p>
+                  </div>
+                </div>
 
-            <div className="bag-item-actions">
-              <button 
-                className="delete-button" 
-                onClick={() => removeItem(item.id)}
-              >
-                🗑️
+                <div className="bag-item-actions">
+                  <button 
+                    className="delete-button" 
+                    onClick={() => removeItem(item.id)}
+                  >
+                    🗑️
+                  </button>
+                  <button 
+                    className="checkout-button-individual"
+                    onClick={() => handleIndividualCheckout(item)}
+                  >
+                    checkout
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Total Section */}
+          <div className="bag-total">
+            <div className="total-row">
+              <span className="total-label">Total price: ${totalPrice}</span>
+              <button className="checkout-button-final" onClick={handleCheckout}>
+                checkout all
               </button>
-              <button className="checkout-button-individual">checkout</button>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Total Section */}
-      <div className="bag-total">
-        <div className="total-row">
-          <span className="total-label">Total price:</span>
-          <button className="checkout-button-final" onClick={handleCheckout}>
-            checkout
-          </button>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,0 +1,188 @@
+/* src/pages/ResolutionCentre/ResolutionCentre.css */
+
+.resolution-centre {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 80vh;
+  }
+  
+  .page-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #000;
+  }
+  
+  .purchases-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  
+  /* Purchases List */
+  .purchases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .purchase-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .purchase-image {
+    width: 100%;
+    height: 200px;
+    background-color: #d3d3d3;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .purchase-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .purchase-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .purchase-name {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    color: #000;
+  }
+  
+  .purchase-price {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #000;
+  }
+  
+  .raise-issue-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 8px;
+    width: fit-content;
+  }
+  
+  .raise-issue-button:hover {
+    background-color: #000;
+  }
+  
+  /* Modal Overlay */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  /* Issue Options Panel */
+  .issue-options-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .issue-panel-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #000;
+  }
+  
+  .issue-option {
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  
+  .issue-option:hover {
+    background-color: #f9f9f9;
+    border-color: #333;
+  }
+  
+  .issue-option:last-child {
+    margin-bottom: 0;
+  }
+  
+  .issue-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    color: #000;
+  }
+  
+  .issue-description {
+    font-size: 14px;
+    margin: 0;
+    color: #999;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 968px) {
+    .purchases-container {
+      grid-template-columns: 1fr;
+    }
+  
+    .issue-options-panel {
+      max-width: 90%;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .resolution-centre {
+      padding: 20px 16px;
+    }
+  
+    .page-title {
+      font-size: 24px;
+      margin-bottom: 24px;
+    }
+  
+    .purchase-card {
+      padding: 16px;
+    }
+  
+    .issue-options-panel {
+      padding: 24px;
+    }
+  }
