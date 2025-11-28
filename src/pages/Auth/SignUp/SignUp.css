@@ -1,4 +1,180 @@
-/* src/pages/Auth/Signup/Signup.css */
+/* src/pages/Auth/SignUp/SignUp.css */
 
-/* Import or copy all styles from Login.css - they're the same */
-@import '../Login/Login.css';
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo-circle {
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 50%;
+  border: 2px solid #E2E2E2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.tagline {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}
+
+.auth-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin: 0 0 0.5rem 0;
+}
+
+.auth-subtitle {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 1.5rem 0;
+}
+
+.auth-subtitle a {
+  color: #242FB4;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.auth-box {
+  background: white;
+  padding: 2rem 2rem;  /* Matching Login page */
+  border-radius: 12px;  /* Matching Login page rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;  /* Matching Login page width */
+}
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;  /* Same tight spacing as Login */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #E2E2E2;
+  border-radius: 8px;  /* Matching Login page rounded inputs */
+  font-size: 0.9rem;
+  transition: border-color 0.2s ease;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder {
+  color: #9FA3A7;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #242FB4;
+}
+
+.auth-button {
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.85rem;
+  background-color: #242FB4;
+  color: white;
+  border: none;
+  border-radius: 8px;  /* Matching Login page rounded button */
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.auth-button:hover {
+  background-color: #1a237e;
+}
+
+.divider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.25rem 0;
+  color: #999;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.google-button {
+  width: 100%;
+  padding: 0.85rem;
+  background-color: white;
+  color: #333;
+  border: 1px solid #E2E2E2;
+  border-radius: 8px;  /* Matching Login page rounded button */
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.google-button:hover {
+  background-color: #f8f9fa;
+  border-color: #ccc;
+}
+
+.google-icon {
+  font-size: 1.3rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-box {
+    padding: 1.5rem 2rem;
+    max-width: 100%;
+  }
+  
+  .auth-title {
+    font-size: 1.5rem;
+  }
+  
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+  }
+}
