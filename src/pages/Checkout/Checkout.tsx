@@ -19,19 +19,19 @@ function Checkout() {
     }
   }, []);
 
-  // Payment method state
-  const [paymentMethod, setPaymentMethod] = useState('card');
+  // Payment method state - tracks which section is expanded
+  const [expandedPayment, setExpandedPayment] = useState('card');
 
   // Form data state
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    age: '',
+    fullName: '',
     email: '',
+    phoneNumber: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
     zipCode: '',
     state: '',
-    emailAddress: '',
-    phoneNumber: '',
     cardName: '',
     cardNumber: '',
     cardDate: '',
@@ -39,13 +39,30 @@ function Checkout() {
   });
 
   // Calculate prices
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const subtotal = cartItems.reduce((sum, item) => {
+    const price = typeof item.price === 'string' 
+      ? parseFloat(item.price.replace('$', '')) 
+      : item.price;
+    return sum + price;
+  }, 0);
   const total = subtotal + shippingCost;
 
   // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  // Toggle payment section
+  const togglePayment = (method) => {
+    setExpandedPayment(expandedPayment === method ? null : method);
+  };
+
+  // Handle save shipping info
+  const handleSaveShipping = (e) => {
+    e.preventDefault();
+    console.log('Shipping info saved:', formData);
+    alert('Shipping information saved!');
   };
 
   // Handle form submission
@@ -55,170 +72,185 @@ function Checkout() {
       formData,
       cartItems,
       total,
-      paymentMethod
+      expandedPayment
     });
     alert('Order placed successfully!');
     navigate('/home');
   };
 
+  // Format price for display
+  const formatPrice = (price) => {
+    if (typeof price === 'string') {
+      return price;
+    }
+    return `$${price}`;
+  };
+
   return (
     <div className="checkout-container">
       <div className="checkout-left">
+        {/* Shipping Information Section */}
+        <div className="info-section">
+          <h2 className="section-title">Shipping Information</h2>
+          
+          <div className="input-box">
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-box">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-box">
+            <input
+              type="tel"
+              name="phoneNumber"
+              placeholder="Phone Number"
+              value={formData.phoneNumber}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-box">
+            <input
+              type="text"
+              name="addressLine1"
+              placeholder="Address Line 1"
+              value={formData.addressLine1}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-box">
+            <input
+              type="text"
+              name="addressLine2"
+              placeholder="Address Line 2 (Optional)"
+              value={formData.addressLine2}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="input-box">
+            <input
+              type="text"
+              name="city"
+              placeholder="City"
+              value={formData.city}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="input-row">
+            <div className="input-box">
+              <input
+                type="text"
+                name="zipCode"
+                placeholder="Zip Code"
+                value={formData.zipCode}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="input-box">
+              <select
+                name="state"
+                value={formData.state}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select State</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Save Button for Shipping */}
+          <button 
+            type="button" 
+            className="save-shipping-button"
+            onClick={handleSaveShipping}
+          >
+            Save
+          </button>
+        </div>
+
+        {/* Payment Section */}
         <form onSubmit={handleSubmit}>
-          {/* Shipping Information */}
-          <section className="checkout-section">
-            <h2 className="section-title">Shipping Information</h2>
-            
-            <div className="form-group">
-              <label>Full Name</label>
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={formData.firstName}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Address Line 1</label>
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={formData.lastName}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Address Line 2</label>
-              <input
-                type="text"
-                name="age"
-                placeholder="Age"
-                value={formData.age}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>City</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label>Zip Code</label>
-                <input
-                  type="text"
-                  name="zipCode"
-                  placeholder="Value"
-                  value={formData.zipCode}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>State</label>
-                <select
-                  name="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select</option>
-                  <option value="state1">State 1</option>
-                  <option value="state2">State 2</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label>Email Address</label>
-              <input
-                type="email"
-                name="emailAddress"
-                placeholder="Value"
-                value={formData.emailAddress}
-                onChange={handleInputChange}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Phone Number</label>
-              <input
-                type="tel"
-                name="phoneNumber"
-                placeholder="Value"
-                value={formData.phoneNumber}
-                onChange={handleInputChange}
-              />
-            </div>
-          </section>
-
-          {/* Payment Section */}
-          <section className="checkout-section">
-            <h2 className="section-title">Payment</h2>
+          <div className="info-section">
+            <h2 className="section-title">Payment Method</h2>
 
             {/* Debit or Credit Card */}
             <div className="payment-option">
               <button
                 type="button"
-                className={`payment-toggle ${paymentMethod === 'card' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('card')}
+                className={`payment-toggle ${expandedPayment === 'card' ? 'active' : ''}`}
+                onClick={() => togglePayment('card')}
               >
                 Debit or Credit Card
-                <span className="toggle-icon">{paymentMethod === 'card' ? '−' : '+'}</span>
+                <span className="toggle-icon">{expandedPayment === 'card' ? '−' : '+'}</span>
               </button>
               
-              {paymentMethod === 'card' && (
+              {expandedPayment === 'card' && (
                 <div className="payment-details">
-                  <div className="form-group">
-                    <label>Name</label>
+                  <div className="input-box">
                     <input
                       type="text"
                       name="cardName"
-                      placeholder="Value"
+                      placeholder="Name on Card"
                       value={formData.cardName}
                       onChange={handleInputChange}
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label>Card Number</label>
+                  <div className="input-box">
                     <input
                       type="text"
                       name="cardNumber"
-                      placeholder="Value"
+                      placeholder="Card Number"
                       value={formData.cardNumber}
                       onChange={handleInputChange}
                     />
                   </div>
 
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label>Date (MM/YYYY)</label>
+                  <div className="input-row">
+                    <div className="input-box">
                       <input
                         type="text"
                         name="cardDate"
-                        placeholder="Value"
+                        placeholder="MM/YYYY"
                         value={formData.cardDate}
                         onChange={handleInputChange}
                       />
                     </div>
-                    <div className="form-group">
-                      <label>CVV</label>
+                    <div className="input-box">
                       <input
                         type="text"
                         name="cardCVV"
-                        placeholder="Value"
+                        placeholder="CVV"
                         value={formData.cardCVV}
                         onChange={handleInputChange}
+                        maxLength="3"
                       />
                     </div>
                   </div>
@@ -230,52 +262,73 @@ function Checkout() {
             <div className="payment-option">
               <button
                 type="button"
-                className={`payment-toggle ${paymentMethod === 'upi' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('upi')}
+                className={`payment-toggle ${expandedPayment === 'upi' ? 'active' : ''}`}
+                onClick={() => togglePayment('upi')}
               >
                 UPI / Paytm
-                <span className="toggle-icon">{paymentMethod === 'upi' ? '−' : '+'}</span>
+                <span className="toggle-icon">{expandedPayment === 'upi' ? '−' : '+'}</span>
               </button>
+              
+              {expandedPayment === 'upi' && (
+                <div className="payment-details">
+                  <div className="input-box">
+                    <input
+                      type="text"
+                      placeholder="UPI ID"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* G-Pay */}
+            {/* Google Pay */}
             <div className="payment-option">
               <button
                 type="button"
-                className={`payment-toggle ${paymentMethod === 'gpay' ? 'active' : ''}`}
-                onClick={() => setPaymentMethod('gpay')}
+                className={`payment-toggle ${expandedPayment === 'gpay' ? 'active' : ''}`}
+                onClick={() => togglePayment('gpay')}
               >
-                G-Pay
-                <span className="toggle-icon">{paymentMethod === 'gpay' ? '−' : '+'}</span>
+                Google Pay
+                <span className="toggle-icon">{expandedPayment === 'gpay' ? '−' : '+'}</span>
               </button>
+              
+              {expandedPayment === 'gpay' && (
+                <div className="payment-details">
+                  <div className="input-box">
+                    <input
+                      type="tel"
+                      placeholder="Phone Number"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Submit Button */}
             <button type="submit" className="submit-order-button">
-              Place Order
+              Pay
             </button>
-          </section>
+          </div>
         </form>
       </div>
 
       {/* Right Side - Order Summary */}
       <div className="checkout-right">
-        <h2 className="seller-name">{sellerName}</h2>
-
-        <div className="cart-items">
+        <div className="cart-items-summary">
           {cartItems.map(item => (
-            <div key={item.id} className="cart-item">
-              <div className="item-image">
-                {item.image ? (
-                  <img src={item.image} alt={item.name} />
-                ) : (
-                  <div className="image-placeholder" />
+            <div key={item.id} className="cart-item-summary">
+              <div className="item-image-summary">
+                <img src={item.image} alt={item.title || item.name} />
+              </div>
+              <div className="item-info-summary">
+                <div className="item-name-summary">{item.title || item.name}</div>
+                {item.brand && item.size && item.condition && (
+                  <div className="item-meta-summary">
+                    {item.brand} / {item.size} / {item.condition}
+                  </div>
                 )}
               </div>
-              <div className="item-details">
-                <div className="item-name">{item.name}</div>
-                <div className="item-price">Price</div>
-              </div>
+              <div className="item-price-summary">{formatPrice(item.price)}</div>
             </div>
           ))}
         </div>
@@ -283,15 +336,15 @@ function Checkout() {
         <div className="order-summary">
           <div className="summary-row">
             <span className="summary-label">Subtotal</span>
-            <span className="summary-value">${subtotal}</span>
+            <span className="summary-value">${subtotal.toFixed(2)}</span>
           </div>
           <div className="summary-row">
             <span className="summary-label">Shipping</span>
-            <span className="summary-value">${shippingCost}</span>
+            <span className="summary-value">${shippingCost.toFixed(2)}</span>
           </div>
           <div className="summary-row total">
             <span className="summary-label">Total</span>
-            <span className="summary-value">${total}</span>
+            <span className="summary-value">${total.toFixed(2)}</span>
           </div>
         </div>
       </div>
