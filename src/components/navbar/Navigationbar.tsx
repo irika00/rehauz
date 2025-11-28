@@ -1,6 +1,16 @@
 // src/components/navbar/Navbar.tsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { 
+  FiHeart,
+  FiUser,
+  FiSearch
+} from 'react-icons/fi';
+import { IoMdHeartEmpty } from "react-icons/io";
+import { IoBagHandleOutline } from "react-icons/io5";
+import { GoMail } from "react-icons/go";
+import { HiPlus } from "react-icons/hi2";
+import logo from '../../assets/images/logo.png';
 import './Navigationbar.css';
 
 function Navbar() {
@@ -24,12 +34,13 @@ function Navbar() {
       {/* Logo */}
       <div className="logo">
         <Link to="/home" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h1>Rehaus</h1>
+          <img src={logo} alt="Rehaus Logo" className="logo-img" />
         </Link>
       </div>
 
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="search-container">
+        <FiSearch className= "search-icon" />
         <input
           type="text"
           placeholder="Search"
@@ -54,18 +65,36 @@ function Navbar() {
           // Logged IN - show profile and icons
           <>
             <button className="profile-button" onClick={() => navigate('/profile')}>
-              My Profile
+              <FiUser /> My Profile
             </button>
-            <button className="icon-button" onClick={() => navigate('/messages')}>💬</button>
-            <button className="icon-button" onClick={() => navigate('/wishlist')}>♡</button>
-            <button className="icon-button" onClick={() => navigate('/shopping-bag')}>🛍️</button>
+            <button className="sell-button" onClick={() => navigate('/sell')} title="Add a listing">
+              <HiPlus />
+            </button>
+            <button className="icon-button" onClick={() => navigate('/messages')}>
+              <GoMail />
+            </button>
+            <button className="icon-button" onClick={() => navigate('/wishlist')}>
+              <IoMdHeartEmpty/>
+            </button>
+            <button className="icon-button" onClick={() => navigate('/shopping-bag')}>
+              <IoBagHandleOutline />
+            </button>
           </>
         ) : (
           // NOT logged in - show Sign Up and Login buttons
           <>
-            <button className="icon-button" onClick={() => navigate('/messages')}>💬</button>
-            <button className="icon-button" onClick={() => navigate('/wishlist')}>♡</button>
-            <button className="icon-button" onClick={() => navigate('/shopping-bag')}>🛍️</button>
+            <button className="sell-button" onClick={() => navigate('/sell')} title="Add a listing">
+              <HiPlus />
+            </button>
+            <button className="icon-button" onClick={() => navigate('/messages')}>
+              <GoMail />
+            </button>
+            <button className="icon-button" onClick={() => navigate('/wishlist')}>
+              <IoMdHeartEmpty />
+            </button>
+            <button className="icon-button" onClick={() => navigate('/shopping-bag')}>
+              <IoBagHandleOutline />
+            </button>
             <Link to="/signup" className="signup-link">Sign Up</Link>
             <Link to="/login" className="login-button">Login</Link>
           </>
