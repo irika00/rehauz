@@ -1,8 +1,8 @@
 // src/pages/Auth/SignUp/SignUp.tsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
 import './SignUp.css';
-
 
 function SignUp() {
   const navigate = useNavigate();
@@ -25,7 +25,6 @@ function SignUp() {
   const handleSignup = (e) => {
     e.preventDefault();
     console.log('Signup:', formData);
-    // Redirect to style preferences after signup
     navigate('/onboarding/style-preferences');
   };
 
@@ -36,93 +35,88 @@ function SignUp() {
   return (
     <div className="auth-container">
       <div className="auth-header">
-        <div className="logo-circle">⬜</div>
+        <div className="logo-circle"></div>
         <p className="tagline">Where Fashion Finds A Second House</p>
       </div>
 
       <div className="auth-box">
-        <h1>Create An Account</h1>
+        <h1 className="auth-title">Create An Account</h1>
         <p className="auth-subtitle">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
 
         <form onSubmit={handleSignup} className="auth-form">
           <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
             <input
               type="text"
               id="firstName"
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              placeholder="First Name"
+              placeholder="First name*"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
               id="lastName"
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              placeholder="Last Name"
-              required
+              placeholder="Last name"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="username">User Name</label>
             <input
               type="text"
               id="username"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder="User Name"
+              placeholder="Username*"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Email"
+              placeholder="Email address*"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Password"
+              placeholder="Password*"
               required
             />
           </div>
 
           <button type="submit" className="auth-button">
-            Register
+            Sign Up
           </button>
         </form>
 
         <div className="divider">
-          <span>or</span>
+          <span>OR</span>
         </div>
 
         <button onClick={handleGoogleSignup} className="google-button">
-          Continue with Google
+          <FcGoogle className="google-icon" />
+          Sign up with Google
         </button>
       </div>
     </div>
