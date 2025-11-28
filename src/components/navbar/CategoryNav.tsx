@@ -1,4 +1,3 @@
-// src/components/navbar/CategoryNav.tsx
 import React from 'react';
 import './CategoryNav.css';
 
