@@ -4,94 +4,180 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 2rem;
-    background-color: white;
+    padding: 0.8rem 2rem;
+    background-color: #242FB4;
     border-bottom: 1px solid #e0e0e0;
   }
   
-  .logo h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .search-container {
-    position: relative;
-    flex: 1;
-    max-width: 500px;
-    margin: 0 2rem;
-  }
-  
-  .search-input {
-    width: 100%;
-    padding: 0.5rem 2rem 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-  
-  .clear-button {
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .profile-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
-  .icon-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.3rem;
-    padding: 0.3rem;
-  }
+.logo {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
 
-  /* Add to src/components/navbar/Navbar.css */
+.logo-img {
+  height: 50px;  
+  width: auto;
+  display: block;
+}
+  
+.search-container {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 2rem;
+  display: flex;
+  align-items: center;  
+}
 
+.search-input {
+  width: 100%;
+  padding: 0.6rem 2.5rem 0.6rem 2.5rem;
+  border: 1px solid #E2E2E2;  
+  border-radius: 20px;
+  font-size: 0.9rem;
+  background-color: #FFFFFF;  
+  color: #000;
+}
+
+.search-input::placeholder {
+  color: #9FA3A7;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: #4A4A4A;  
+  pointer-events: none;
+}
+
+.clear-button {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #9FA3A7;  
+}
+
+.clear-button:hover {
+  color: #4A4A4A;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;  
+}
+
+/* Sell/List button - Refined circle with rotation */
+.sell-button {
+  background-color: #FFFFFF;
+  border: none;
+  cursor: pointer;
+  font-size: 1.15rem;
+  padding: 0;
+  color: #242FB4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  width: 2.25rem;
+  height: 2.25rem;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  margin-right: 0.5rem;  /* Add extra spacing to the right */
+}
+
+.sell-button:hover {
+  background-color: #EFF2FF;
+  color: #242FB4;
+  transform: rotate(90deg);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.sell-button svg {
+  stroke-width: 1.75px;
+}
+
+/* Remove all the ::after and ::before tooltip code */
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;  
+  padding: 0.35rem;   
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  line-height: 1;
+  height: 2.8rem;  
+  width: 2.6rem;   
+}
+
+.icon-button:hover {
+  color: #E8E8FF;
+}
+
+/* Sign Up - Primary action */
 .signup-link {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .signup-link:hover {
-    text-decoration: underline;
-  }
-  
-  .login-button {
-    padding: 0.5rem 1.5rem;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-  }
-  
-  .login-button:hover {
-    background-color: #555;
-  }
+  padding: 0.55rem 1.3rem;  
+  background-color: #FFFFFF;  
+  color: #242FB4;  
+  border: none;
+  border-radius: 8px;  
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.signup-link:hover {
+  background-color: #F5F7FF;
+  text-decoration: none;
+}
+
+/* Login - Secondary action */
+.login-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #242FB4;  
+  color: white;  
+  border: 1px solid #FFFFFF;  
+  border-radius: 8px;  
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #FFFFFF;
+  color: #242FB4;
+  text-decoration: none;
+}
