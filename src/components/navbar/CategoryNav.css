@@ -1,20 +1,28 @@
 /* src/components/navbar/CategoryNav.css */
 
 .category-nav {
-    display: flex;
-    gap: 2rem;
-    padding: 0.75rem 2rem;
-    background-color: white;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  
-  .category-link {
-    color: #333;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 400;
-  }
-  
-  .category-link:hover {
-    text-decoration: underline;
-  }
+  display: flex;
+  gap: 2rem;  /* This creates space between Women, Men, Brands, Trending */
+  padding: 0.75rem 2rem;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.category-item {
+  position: relative;
+}
+
+.category-link {
+  color: #333333;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: color 0.2s ease;
+  cursor: pointer;
+}
+
+.category-link:hover {
+  color: #242FB4;
+  text-decoration: underline;
+}
