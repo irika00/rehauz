@@ -1,67 +1,65 @@
 // src/pages/ShoppingBag/ShoppingBag.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 import './ShoppingBag.css';
 
 function ShoppingBag() {
   const navigate = useNavigate();
+  const [bagItems, setBagItems] = useState([]);
 
-  // Sample bag items (later this will come from your backend/Supabase)
-  const [bagItems, setBagItems] = useState([
-    { 
-      id: 1, 
-      name: 'Vintage Denim Jacket', 
-      price: 45, 
-      description: 'Classic vintage denim jacket in excellent condition.',
-      image: 'https://picsum.photos/150/150?random=50'
-    },
-    { 
-      id: 2, 
-      name: 'Floral Summer Dress', 
-      price: 30, 
-      description: 'Beautiful floral print dress, perfect for summer.',
-      image: 'https://picsum.photos/150/150?random=51'
-    },
-    { 
-      id: 3, 
-      name: 'Leather Ankle Boots', 
-      price: 60, 
-      description: 'Stylish leather boots with minimal wear.',
-      image: 'https://picsum.photos/150/150?random=52'
-    },
-  ]);
+  // Load items from localStorage whenever component mounts
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      const parsedCart = JSON.parse(savedCart);
+      setBagItems(parsedCart);
+    }
+  }, []);
 
-  // Calculate total price
-  const totalPrice = bagItems.reduce((sum, item) => sum + item.price, 0);
+  // Group items by seller (for now, all items are from "Rehaus Marketplace")
+  const groupedItems = bagItems.reduce((groups, item) => {
+    const seller = item.seller || 'Rehaus Marketplace';
+    if (!groups[seller]) {
+      groups[seller] = [];
+    }
+    groups[seller].push(item);
+    return groups;
+  }, {});
+
+  // Calculate total price for a seller's items
+  const calculateSellerTotal = (items) => {
+    return items.reduce((sum, item) => {
+      const price = typeof item.price === 'string' 
+        ? parseFloat(item.price.replace('$', '')) 
+        : item.price;
+      return sum + price;
+    }, 0);
+  };
 
   // Remove item from bag
   const removeItem = (itemId) => {
-    setBagItems(bagItems.filter(item => item.id !== itemId));
+    const updatedItems = bagItems.filter(item => item.id !== itemId);
+    setBagItems(updatedItems);
+    localStorage.setItem('cart', JSON.stringify(updatedItems));
   };
 
-  // Navigate to checkout with all items
-  const handleCheckout = () => {
-    if (bagItems.length === 0) {
-      alert('Your bag is empty!');
-      return;
+  // Navigate to checkout with seller's items
+  const handleSellerCheckout = (sellerName, items) => {
+    navigate('/checkout', {
+      state: {
+        cartItems: items,
+        sellerName: sellerName
+      }
+    });
+  };
+
+  // Format price for display
+  const formatPrice = (price) => {
+    if (typeof price === 'string') {
+      return price;
     }
-    
-    navigate('/checkout', {
-      state: {
-        cartItems: bagItems,
-        sellerName: 'Rehaus Marketplace'
-      }
-    });
-  };
-
-  // Navigate to checkout with single item
-  const handleIndividualCheckout = (item) => {
-    navigate('/checkout', {
-      state: {
-        cartItems: [item],
-        sellerName: 'Rehaus Marketplace'
-      }
-    });
+    return `$${price}`;
   };
 
   return (
@@ -73,50 +71,61 @@ function ShoppingBag() {
           <p>Your shopping bag is empty</p>
         </div>
       ) : (
-        <>
-          <div className="bag-items">
-            {bagItems.map((item) => (
-              <div key={item.id} className="bag-item">
-                <div className="bag-item-content">
-                  <div className="bag-item-image">
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  
-                  <div className="bag-item-details">
-                    <h3 className="bag-item-name">{item.name}</h3>
-                    <p className="bag-item-price">${item.price}</p>
-                    <p className="bag-item-description">{item.description}</p>
-                  </div>
+        <div className="seller-groups">
+          {Object.entries(groupedItems).map(([sellerName, items]) => {
+            const sellerTotal = calculateSellerTotal(items);
+            
+            return (
+              <div key={sellerName} className="seller-group">
+                <div className="seller-items">
+                  {items.map((item) => (
+                    <div key={item.id} className="bag-item">
+                      <div className="item-left">
+                        <div className="bag-item-image">
+                          <img src={item.image} alt={item.title || item.name} />
+                        </div>
+                        
+                        <div className="bag-item-details">
+                          <h3 className="bag-item-name">{item.title || item.name}</h3>
+                          {item.brand && item.size && item.condition && (
+                            <p className="bag-item-meta">
+                              {item.brand} / {item.size} / {item.condition}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="item-right">
+                        <button 
+                          className="delete-button" 
+                          onClick={() => removeItem(item.id)}
+                          aria-label="Remove item"
+                        >
+                          <RiDeleteBin6Line />
+                        </button>
+                        <p className="bag-item-price">{formatPrice(item.price)}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="bag-item-actions">
+                {/* Seller Total and Checkout */}
+                <div className="seller-footer">
+                  <div className="seller-total">
+                    <span className="total-label">Total</span>
+                    <span className="total-price">${sellerTotal.toFixed(2)}</span>
+                  </div>
                   <button 
-                    className="delete-button" 
-                    onClick={() => removeItem(item.id)}
+                    className="checkout-button"
+                    onClick={() => handleSellerCheckout(sellerName, items)}
                   >
-                    🗑️
-                  </button>
-                  <button 
-                    className="checkout-button-individual"
-                    onClick={() => handleIndividualCheckout(item)}
-                  >
-                    checkout
+                    Checkout {items.length} {items.length === 1 ? 'item' : 'items'}
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Total Section */}
-          <div className="bag-total">
-            <div className="total-row">
-              <span className="total-label">Total price: ${totalPrice}</span>
-              <button className="checkout-button-final" onClick={handleCheckout}>
-                checkout all
-              </button>
-            </div>
-          </div>
-        </>
+            );
+          })}
+        </div>
       )}
     </div>
   );
